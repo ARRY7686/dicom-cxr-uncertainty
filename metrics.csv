@@ -1,0 +1,5 @@
+Metric,Value
+Validation AUROC,0.7649
+ECE Before Calibration,0.2866
+ECE After Calibration,0.2843
+Temperature,1.2410012483596802
