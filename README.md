@@ -51,6 +51,9 @@ The project focuses on:
 ---
 
 ## Dataset
+This project currently focuses on binary pneumonia detection using the RSNA Pneumonia Detection Challenge dataset as a foundational DICOM pipeline.
+
+Future work will expand the system toward multi-label thoracic pathology classification using datasets such as NIH ChestXray14 and MIMIC-CXR.
 
 This project uses the:
 
@@ -145,7 +148,7 @@ Training was performed on Kaggle GPUs using PyTorch.
 
 ## Results
 
-### Validation Performance
+### Baseline Validation Performance
 
 | Metric | Value |
 |---|---|
@@ -154,7 +157,38 @@ Training was performed on Kaggle GPUs using PyTorch.
 | ECE After Calibration | 0.2843 |
 | Temperature Scaling | 1.2410 |
 
+### Notes on Current Results
+
+These results represent an initial baseline obtained after only 3 training epochs on Kaggle GPU resources using a DenseNet121 backbone.
+
+The primary objective of this phase was validating the end-to-end DICOM-first pipeline, uncertainty estimation workflow, and calibration framework rather than maximizing benchmark performance.
+
+Published RSNA Pneumonia Detection baselines typically achieve higher AUROC scores (~0.85–0.90+) with:
+- longer training schedules
+- larger input resolutions
+- stronger augmentation pipelines
+- learning rate scheduling
+- ensembling
+- more extensive hyperparameter tuning
+
+Future iterations of this project will focus on improving predictive performance and extending the system to multi-label pathology classification.
+
 ---
+### Calibration Analysis
+
+Temperature scaling produced only marginal ECE improvement in the current baseline configuration.
+
+This likely indicates:
+- insufficient model convergence
+- limited confidence separation after short training
+- the need for longer optimization schedules before post-hoc calibration becomes highly effective
+
+Future work includes:
+- longer training
+- focal loss
+- improved calibration techniques
+- confidence-aware optimization
+
 
 ## Reliability Diagram
 
