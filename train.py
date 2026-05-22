@@ -121,7 +121,20 @@ model = build_model()
 
 model = model.to(device)
 
-criterion = nn.BCEWithLogitsLoss()
+pos_count = train_df["Target"].sum()
+
+neg_count = len(train_df) - pos_count
+
+pos_weight = torch.tensor(
+    [neg_count / pos_count],
+    dtype=torch.float32
+).to(device)
+
+print("Positive Weight:", pos_weight.item())
+
+criterion = nn.BCEWithLogitsLoss(
+    pos_weight=pos_weight
+)
 
 optimizer = torch.optim.AdamW(
     model.parameters(),
